@@ -1,0 +1,3 @@
+.venv
+.hintrc
+db.sqlite3
