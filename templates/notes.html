@@ -4,9 +4,9 @@
     {% for note in notes %}
         <div class="card">
             <div class="card-body bg-light text-dark p-3">
-                <h5 class="card-title mb-3">Title : {{ note.title }}</h5>
-                <p class="card-text">Author: {{ note.content }}</p>
-                <p class="card-text">Created at: {{ note.created_at }}</p>
+               <p><h5 class="card-title mb-3">Title : {{ note.title }}</h5><a class="btn btn-primary btn-sm mt-1" href="{% url 'note-detail' note.pk %}">Read more</a></p>
+                <p class="card-text">Author: {{ note.user }}</p>
+                <p class="card-text">Created at: {{ note.created_at|date:"F d, Y" }}</p>
             </div>
         </div>
     {% endfor %}
