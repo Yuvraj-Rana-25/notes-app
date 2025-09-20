@@ -5,9 +5,15 @@
     <h1 class="display-4">Welcome to Notes!</h1>
     <p class="lead">Capture your thoughts, ideas, and reminders all in one place.</p>
     <hr class="my-4">
+    {% if user.is_authenticated %}
+    <p>Hello {{ user.username }}</p>
     <p>Start by browsing your existing notes or creating a new one.</p>
     <a class="btn btn-primary btn-lg mx-2" href="{% url 'notes' %}" role="button">View Notes</a>
     <a class="btn btn-success btn-lg mx-2" href="{% url 'note-create' %}" role="button">Create Note</a>
+    {% else %}
+    <p>Please log in to access your notes.</p>
+    <a class="btn btn-primary btn-lg mx-2" href="{% url 'login' %}" role="button">Login</a>
+    {% endif %}
 </div>
 
 
