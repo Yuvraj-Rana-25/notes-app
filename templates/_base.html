@@ -8,18 +8,22 @@
 </head>
 <body>
     <header class="p-1 bg-dark text-white">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container d-flex align-items-center">
             <h1 class="m-0">
             <a href="{% url 'home' %}" class="text-white text-decoration-none fw-bold fs-1">Notes</a>
             </h1>
-            {% if user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form>
-            {% else %}
-            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
-            {% endif %}
+            <div class="ms-auto d-flex align-items-center">
+                {% if user.is_authenticated %}
+                <p class="m-0 d-inline mx-2">Hello, {{ user.username }}</p>
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                {% endif %}
+            </div>
         </div>
     </header>
 
