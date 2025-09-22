@@ -12,9 +12,10 @@
                     <a class="btn btn-primary btn-sm mt-1" href="{% url 'login' %}">Read more</a></p>
                     {% endif %}
                 </div>
-                <p class="card-text">Author: {{ note.user }}</p>
-                <p class="card-text">Created at: {{ note.created_at|date:"F d, Y" }}</p>
+                <p class="card-text fw-500">Author: {{ note.user }}</p>
+                <p class="card-text text-muted fs-6">Created at: {{ note.created_at|date:"F d, Y" }}</p>
             </div>
         </div>
+        <br>
     {% endfor %}
 {% endblock content %}
