@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Note
+from .models import Note, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -57,3 +57,75 @@ class NoteDeleteView(LoginRequiredMixin, DeleteView):
         if obj.user != self.request.user:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+    
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'comment_form.html'
+    model = Comment
+    fields = ['content']
+    login_url = 'login'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.note = Note.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['note'] = Note.objects.get(pk=self.kwargs['pk'])
+        return context
+    
+    def get_success_url(self):
+        return reverse_lazy('note-detail', kwargs={'pk': self.kwargs['pk']})
+    
+
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'comment_form.html'
+    model = Comment
+    fields = ['content']
+    login_url = 'login'
+
+    def get_object(self, queryset=None):
+        comment = Comment.objects.get(pk=self.kwargs['comment_pk'])
+        return comment
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != request.user:
+            raise PermissionDenied('You do not have permission to edit this comment.')
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['note'] = Note.objects.get(pk=self.kwargs['pk'])
+        context['comment'] = Comment.objects.get(pk=self.kwargs['comment_pk'])
+        return context
+    
+    def get_success_url(self):
+        return reverse_lazy('note-detail', kwargs={'pk': self.kwargs['pk']})
+    
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'comment_delete.html'
+    model = Comment
+    success_url = reverse_lazy('notes')
+    login_url = 'login'
+
+    def get_object(self, queryset=None):
+        comment = Comment.objects.get(pk=self.kwargs['comment_pk'])
+        return comment
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != request.user:
+            raise PermissionDenied('You do not have permission to delete this comment.')
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['note'] = Note.objects.get(pk=self.kwargs['pk'])
+        context['comment'] = Comment.objects.get(pk=self.kwargs['comment_pk'])
+        return context
+    
+    def get_success_url(self):
+        return reverse_lazy('note-detail', kwargs={'pk': self.kwargs['pk']})

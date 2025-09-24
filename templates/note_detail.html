@@ -13,6 +13,22 @@
         <p class="card-text">Author: {{note.user}}</p>
         <p class="card-text">{{ note.content }}</p>
     </div>
+    <div class="card-body bg-light text-dark p-3">
+        <h5 class="card-title">Comments</h5>
+        <a href="{% url 'comment-create' note.pk %}">Add a comment</a>
+        {% if note.comments.all %}
+            {% for comment in note.comments.all %}
+                <div class="comment-line">
+                    <p class="comment-content"><strong class="comment-author">{{ comment.user }}:</strong> {{ comment.content }}</p>
+                    {% if comment.user == user %}
+                    <a href="{% url 'comment-update' note.pk comment.pk %}"><img src="/static/images/edit-solid.svg" alt="edit-icon" class="edit-icon"></a>
+                    <a href="{% url 'comment-delete' note.pk comment.pk %}"><img src="/static/images/trash.svg" alt="trash-icon"></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+    </div>
     <a href="{% url 'notes' %}" class="btn bg-dark text-white btn-sm mt-1 mx-2">Back</a>
-
 {% endblock content %}

@@ -18,7 +18,7 @@ class Note(models.Model):
 
 
 class Comment(models.Model):
-    note = models.ForeignKey(Note, on_delete=models.CASCADE)
+    note = models.ForeignKey(Note, on_delete=models.CASCADE , related_name='comments')
     content = models.TextField()
     user = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,3 +26,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+    
+    
