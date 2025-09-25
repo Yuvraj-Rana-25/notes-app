@@ -1,0 +1,32 @@
+.custom-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #343a40;
+    color: #fff;
+}
+.header-content{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0px 20px;
+    padding: 0px;
+}
+.app-name{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar{
+    flex: 1;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    color: #333;
+}

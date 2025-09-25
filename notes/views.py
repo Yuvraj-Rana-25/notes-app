@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
 from .models import Note, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +11,15 @@ from django.core.exceptions import PermissionDenied
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+
+class SearchResultsListView(LoginRequiredMixin, ListView):
+    template_name = 'search_results.html'
+    context_object_name = 'notes'
+    model = Note
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Note.objects.filter(Q(title__icontains=query) | Q(user__username__icontains=query))
 class NotesListView(LoginRequiredMixin,ListView):
     template_name = 'notes.html'
     context_object_name = 'notes'

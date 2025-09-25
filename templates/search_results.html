@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% block title %}Search Results{% endblock title %}
+
+{% block content %}
+    <div class="card-body bg-light text-dark p-3">
+        <h5 class="card-title">Search Results</h5>
+        <ul class="list-group">
+            {% if not notes %}
+                <li class="list-group-item">No notes found.</li>
+            {% endif %}
+                {% for note in notes %}
+                    <li><a href="{% url 'note-detail' note.pk %}" class="list-group-item list-group-item-action">{{ note.title }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
