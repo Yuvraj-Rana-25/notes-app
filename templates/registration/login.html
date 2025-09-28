@@ -11,6 +11,9 @@
         </form>
     </div>
     <div class="card-body bg-light text-dark p-3">
-        <p">Don't have an account? <a href="{% url 'signup' %}" class="btn btn-success">Sign Up</a></p>
+        <p class="card-text">Forgot Password? <a href="{% url 'password_reset' %}" class="btn btn-success btn-sm">Reset Password</a></p>
+    </div>
+    <div class="card-body bg-light text-dark p-3">
+        <p class="card-text">Don't have an account? <a href="{% url 'signup' %}" class="btn btn-success btn-sm">Sign Up</a></p>
     </div>
 {% endblock content %}
