@@ -12,10 +12,8 @@
     <a class="btn btn-success btn-lg mx-2" href="{% url 'note-create' %}" role="button">Create Note</a>
     {% else %}
     <p>Please log in to access your notes.</p>
-    <a class="btn btn-primary btn-lg mx-2" href="{% url 'login' %}" role="button">Login</a>
-    <a class="btn btn-success btn-lg mx-2" href="{% url 'signup' %}" role="button">Sign Up</a>
+    <a class="btn btn-primary btn-lg mx-2" href="{% url 'account_login' %}" role="button">Login</a>
+    <a class="btn btn-success btn-lg mx-2" href="{% url 'account_signup' %}" role="button">Sign Up</a>
     {% endif %}
 </div>
-
-
 {% endblock content %}
