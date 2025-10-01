@@ -22,5 +22,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('users/', include('users.urls')), 
+    path('api/', include('apis.urls')),
     path('', include('notes.urls')),
 ]
