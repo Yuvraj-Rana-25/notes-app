@@ -24,20 +24,20 @@ class NotesListView(LoginRequiredMixin,ListView):
     template_name = 'notes.html'
     context_object_name = 'notes'
     model = Note
-    login_url = 'login'
+    login_url = 'account_login'
 
 class NoteDetailView(LoginRequiredMixin, DetailView):
     template_name = 'note_detail.html'
     context_object_name = 'note'
     model = Note
-    login_url = 'login'
+    login_url = 'account_login'
 
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     template_name = 'note_form.html'
     model = Note
     fields = ['title', 'content']
-    login_url = 'login'
+    login_url = 'account_login'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -48,7 +48,7 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'note_update.html'
     model = Note
     fields = ['title', 'content']
-    login_url = 'login'
+    login_url = 'account_login'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -60,7 +60,7 @@ class NoteDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'note_delete.html'
     model = Note
     success_url = reverse_lazy('notes')
-    login_url = 'login'
+    login_url = 'account_login'
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -73,7 +73,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'comment_form.html'
     model = Comment
     fields = ['content']
-    login_url = 'login'
+    login_url = 'account_login'
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -93,7 +93,7 @@ class CommentUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'comment_form.html'
     model = Comment
     fields = ['content']
-    login_url = 'login'
+    login_url = 'account_login'
 
     def get_object(self, queryset=None):
         comment = Comment.objects.get(pk=self.kwargs['comment_pk'])
@@ -119,7 +119,7 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'comment_delete.html'
     model = Comment
     success_url = reverse_lazy('notes')
-    login_url = 'login'
+    login_url = 'account_login'
 
     def get_object(self, queryset=None):
         comment = Comment.objects.get(pk=self.kwargs['comment_pk'])
