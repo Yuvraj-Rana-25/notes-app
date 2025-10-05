@@ -16,8 +16,7 @@ RUN pip install -r requirements.txt
 # Copy project
 COPY . .
 
-# collect static files for production
-RUN python manage.py collectstatic --noinput
+
 
 # expose the app port
 EXPOSE 8000
