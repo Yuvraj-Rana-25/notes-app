@@ -184,7 +184,6 @@ DEFAULT_FROM_EMAIL = "admin@noteit.com"
 
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_SESSION_REMEMBER = True
 # ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # ACCOUNT_USERNAME_REQUIRED = False
@@ -195,3 +194,11 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_REDIRECT_URL = 'account_email_verification_sent'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "apikey"  # This is literally the word 'apikey'
+EMAIL_HOST_PASSWORD = env("SENDGRID_API_KEY")
+DEFAULT_FROM_EMAIL = 'yuvrajrana250304@gmail.com'
