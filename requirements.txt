@@ -21,3 +21,4 @@ environs
 dj-database-url
 whitenoise
 gunicorn
+django-sendgrid-v5
