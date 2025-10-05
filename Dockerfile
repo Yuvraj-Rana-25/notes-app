@@ -15,3 +15,12 @@ RUN pip install -r requirements.txt
 
 # Copy project
 COPY . .
+
+# collect static files for production
+RUN python manage.py collectstatic --noinput
+
+# expose the app port
+EXPOSE 8000
+
+# entrypoint for Render
+CMD ["gunicorn", "notes_project.wsgi:application", "--bind", "0.0.0.0:8000"]
