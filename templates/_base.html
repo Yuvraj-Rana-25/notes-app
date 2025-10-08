@@ -35,6 +35,8 @@
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
+                            <a class="dropdown-item" href="{% url 'profile' user.username %}">Profile</a>
+                        <li>
                             <a class="dropdown-item" href="{% url 'note-create' %}">Create Note</a>
                         </li>
                         <li>

@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+    <div class="card-body bg-light text-dark p-3">
+        <h2 class="card-title">Username: {{ user.username }}</h2>
+        <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+        <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        <hr>
+        <h3>User's Notes</h3>
+        {% if notes %}
+            <ul class="list-group">
+                {% for note in notes %}
+                    <li class="list-group-item">
+                        <a href="{% url 'note-detail' note.pk %}">{{ note.title }}</a>
+                        <span class="text-muted"> - {{ note.created_at|date:"F j, Y" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No notes found.</p>
+        {% endif %}
+    </div>
+{% endblock content %}

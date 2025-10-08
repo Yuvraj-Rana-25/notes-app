@@ -139,3 +139,13 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('note-detail', kwargs={'pk': self.kwargs['pk']})
+    
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+    login_url = 'account_login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notes'] = Note.objects.filter(user=self.request.user)
+        return context
