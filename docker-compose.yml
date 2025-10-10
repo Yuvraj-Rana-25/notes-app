@@ -3,8 +3,8 @@ services:
     build: .
     env_file:
       - .env
-    #command: python /code/manage.py runserver 0.0.0.0:8000
-    command: gunicorn notes_project.wsgi -b 0.0.0.0:8000
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    
     volumes:
       - .:/code
     ports:
