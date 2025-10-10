@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from users.models import CustomUser
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from .models import Note, Comment
@@ -147,5 +148,8 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['notes'] = Note.objects.filter(user=self.request.user)
+        username = self.kwargs.get('username')
+        user_obj = get_object_or_404(CustomUser, username=username)
+        context['user'] = user_obj
+        context['notes'] = Note.objects.filter(user=user_obj).order_by('-created_at')
         return context
